@@ -402,6 +402,13 @@ private fun BigAction(emoji: String, text: String, color: Color, modifier: Modif
 }
 
 @Composable
+private fun FoundStars(found: Boolean, modifier: Modifier = Modifier) {
+    AnimatedVisibility(visible = found, enter = fadeIn(tween(450)) + scaleIn(), modifier = modifier) {
+        Text("🌟 🌟", modifier = Modifier.padding(20.dp), fontSize = 32.sp)
+    }
+}
+
+@Composable
 private fun ExploreScreen(english: Boolean, onFind: (Dino) -> Unit, onHint: (Dino) -> Unit) {
     var index by remember { mutableIntStateOf(Random.nextInt(dinosaurs.size)) }
     var found by remember { mutableStateOf(false) }
@@ -423,9 +430,7 @@ private fun ExploreScreen(english: Boolean, onFind: (Dino) -> Unit, onHint: (Din
                         }
                     }
                 }
-                AnimatedVisibility(visible = found, enter = fadeIn(tween(450)) + scaleIn(), modifier = Modifier.align(Alignment.TopEnd)) {
-                    Text("🌟 🌟", modifier = Modifier.padding(20.dp), fontSize = 32.sp)
-                }
+                FoundStars(found, Modifier.align(Alignment.TopEnd))
             }
         }
         Panel(Modifier.weight(.33f).fillMaxHeight()) {
